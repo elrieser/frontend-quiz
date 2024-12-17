@@ -19,6 +19,23 @@
 		currentQuestion++;
 		submitted = false;
 	}
+
+	//schreibe eine Funktion, welche es möglich macht, die Frage und die Punkte zu spreichern auch wenn man die Seite neu laden muss
+	function saveData() {
+		localStorage.setItem('currentQuestion', currentQuestion);
+		localStorage.setItem('score', score);
+	}
+
+	//und schreibe dann noch eine $effect Funktion, welche es ermöglicht, dass die Daten wieder geladen werden
+
+	$effect(() => {
+		if (localStorage.getItem('currentQuestion')) {
+			currentQuestion = parseInt(localStorage.getItem('currentQuestion'));
+		}
+		if (localStorage.getItem('score')) {
+			score = parseInt(localStorage.getItem('score'));
+		}
+	});
 </script>
 
 {#if currentQuestion < data.questions.length}
@@ -26,10 +43,11 @@
 		{#if index === currentQuestion}
 			<p>Question {index + 1} of {data.questions.length}</p>
 			<br />
-			<h2>{question.question}</h2>
+			<h2><strong>{question.question}</strong></h2>
 			<br />
 			{#each question.options as option, index (option)}
 				{#key submitted}
+					<br />
 					<ListItem
 						title={option}
 						{index}
@@ -44,7 +62,9 @@
 	{/each}
 {:else}
 	<h2>Game Over!</h2>
+	<br />
 	<p>You scored {score} out of {data.questions.length} points!</p>
+	<br />
 	<button class="btn btn-primary" onclick={window.location.reload()}> Play again! </button>
 {/if}
 
@@ -59,11 +79,7 @@
 <br />
 <br />
 
-<h1>Punkte: {score}</h1>
+<h1><strong>Punkte: {score} von {data.questions.length}</strong></h1>
 {selectedAnswer}
 
 <br />
-
-{#key submitted}
-	{JSON.stringify(data.questions[currentQuestion])}
-{/key}

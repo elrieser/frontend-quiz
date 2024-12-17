@@ -12,6 +12,6 @@
 
 <div class="flex flex-col gap-4">
 	{#each data.quizzes as quiz, index (quiz.title)}
-		<a href="/{quiz.title.toLowerCase()}"><Listitem title={quiz.title} {index} /></a>
+		<!-- <a href="/{quiz.title.toLowerCase()}"><Listitem title={quiz.title} {index} /></a> -->
 	{/each}
 </div>
