@@ -2,14 +2,26 @@
 	import '../app.css';
 	import 'iconify-icon';
 
-	let theme = 'dark';
+	let theme = $state('dark');
+
 	function switchTheme() {
 		if (theme === 'dark') {
 			theme = 'light';
+			localStorage.setItem('theme', 'light');
 		} else {
 			theme = 'dark';
+			localStorage.setItem('theme', 'dark');
 		}
 	}
+
+	$effect(() => {
+		if (localStorage.getItem('theme')) {
+			theme = localStorage.getItem('theme');
+			if (theme === 'light') {
+				document.querySelector('.toggle').checked = false;
+			}
+		}
+	});
 </script>
 
 <div data-theme={theme} class="min-h-screen p-4">
@@ -31,5 +43,3 @@
 
 	<slot />
 </div>
-
-PS C:\Users\Elisa Rieser\Desktop\frontend-quiz>

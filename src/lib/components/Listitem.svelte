@@ -16,5 +16,5 @@
 	{:else}
 		<span>{ABC[index]}</span>
 	{/if}
-	<span>{title} - {correctAnswer}</span>
+	<span>{title}</span>
 </button>
